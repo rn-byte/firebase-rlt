@@ -9,6 +9,11 @@ class MyHomePage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Firebase Work'),
       ),
+      body: const Center(
+        child: SizedBox(
+          child: Text("Welcome "),
+        ),
+      ),
     );
   }
 }
