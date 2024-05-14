@@ -1,22 +1,22 @@
-import 'package:firebase_rlt/pages/login.dart';
+import 'package:firebase_rlt/pages/sign_up.dart';
 import 'package:firebase_rlt/util/text_form_field.dart';
 import 'package:flutter/material.dart';
 
-class SignUp extends StatefulWidget {
-  const SignUp({super.key});
+class LogIn extends StatefulWidget {
+  const LogIn({super.key});
 
   @override
-  State<SignUp> createState() {
-    return _SignUpState();
+  State<LogIn> createState() {
+    return _LogInState();
   }
 }
 
-class _SignUpState extends State<SignUp> {
+class _LogInState extends State<LogIn> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Sign Up"),
+        title: const Text("Login "),
         titleTextStyle: const TextStyle(
           fontFamily: 'Poppins',
           fontSize: 20,
@@ -30,30 +30,7 @@ class _SignUpState extends State<SignUp> {
         child: ListView(
           children: [
             const SizedBox(
-              height: 100,
-            ),
-            TextFormField(
-              decoration: formFieldDecoration(
-                  hText: 'First Name', lText: 'First Name', icon: Icons.person),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              decoration: formFieldDecoration(
-                  hText: 'Last Name', lText: 'Last Name', icon: Icons.person),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              decoration: formFieldDecoration(
-                  hText: 'Enter Phone Number',
-                  lText: 'Enter Phone Number',
-                  icon: Icons.phone),
-            ),
-            const SizedBox(
-              height: 15,
+              height: 200,
             ),
             TextFormField(
               decoration: formFieldDecoration(
@@ -73,24 +50,13 @@ class _SignUpState extends State<SignUp> {
                   suffixIcon: Icons.no_encryption),
             ),
             const SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              obscureText: true,
-              decoration: formFieldDecoration(
-                  hText: 'Re-type Password',
-                  lText: 'Re-type Password',
-                  icon: Icons.password,
-                  suffixIcon: Icons.no_encryption),
-            ),
-            const SizedBox(
               height: 40,
             ),
             SizedBox(
               height: 45,
               width: 200,
               child:
-                  ElevatedButton(onPressed: () {}, child: const Text('Signup')),
+                  ElevatedButton(onPressed: () {}, child: const Text('Login')),
             ),
             const SizedBox(
               height: 15,
@@ -100,7 +66,7 @@ class _SignUpState extends State<SignUp> {
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
                 const Text(
-                  'Already have an Account ?',
+                  'Don\'t have an Account ?',
                   style: TextStyle(
                       color: Colors.black,
                       fontFamily: 'Poppins',
@@ -113,12 +79,12 @@ class _SignUpState extends State<SignUp> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => const LogIn(),
+                            builder: (context) => const SignUp(),
                           ));
                     });
                   },
                   child: const Text(
-                    ' Login',
+                    ' Signup',
                     style: TextStyle(
                         decoration: TextDecoration.underline,
                         decorationColor: Colors.blue,
