@@ -55,8 +55,15 @@ class _LogInState extends State<LogIn> {
             SizedBox(
               height: 45,
               width: 200,
-              child:
-                  ElevatedButton(onPressed: () {}, child: const Text('Login')),
+              child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Login',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
             ),
             const SizedBox(
               height: 15,
@@ -83,17 +90,16 @@ class _LogInState extends State<LogIn> {
                           ));
                     });
                   },
-                  child: const Text(
-                    ' Signup',
-                    style: TextStyle(
+                  child: const Text(' Signup',
+                      style: TextStyle(
                         decoration: TextDecoration.underline,
-                        decorationColor: Colors.blue,
+                        decorationColor: Colors.deepPurple,
                         decorationThickness: 1.0,
                         decorationStyle: TextDecorationStyle.solid,
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue),
-                  ),
+                        color: Colors.deepPurple,
+                      )),
                 ),
               ],
             )

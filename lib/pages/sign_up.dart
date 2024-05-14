@@ -89,8 +89,15 @@ class _SignUpState extends State<SignUp> {
             SizedBox(
               height: 45,
               width: 200,
-              child:
-                  ElevatedButton(onPressed: () {}, child: const Text('Signup')),
+              child: ElevatedButton(
+                  onPressed: () {},
+                  child: const Text(
+                    'Signup',
+                    style: TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
             ),
             const SizedBox(
               height: 15,
@@ -121,12 +128,12 @@ class _SignUpState extends State<SignUp> {
                     ' Login',
                     style: TextStyle(
                         decoration: TextDecoration.underline,
-                        decorationColor: Colors.blue,
+                        decorationColor: Colors.deepPurple,
                         decorationThickness: 1.0,
                         decorationStyle: TextDecorationStyle.solid,
                         fontSize: 15,
                         fontWeight: FontWeight.bold,
-                        color: Colors.blue),
+                        color: Colors.deepPurple),
                   ),
                 ),
               ],
