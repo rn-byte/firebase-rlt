@@ -1,3 +1,4 @@
+import 'package:firebase_rlt/pages/home.dart';
 import 'package:firebase_rlt/pages/sign_up.dart';
 import 'package:firebase_rlt/util/text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -56,7 +57,13 @@ class _LogInState extends State<LogIn> {
               height: 45,
               width: 200,
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const MyHomePage(),
+                        ));
+                  },
                   child: const Text(
                     'Login',
                     style: TextStyle(
@@ -83,7 +90,7 @@ class _LogInState extends State<LogIn> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const SignUp(),

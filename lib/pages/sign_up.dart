@@ -117,7 +117,7 @@ class _SignUpState extends State<SignUp> {
                 InkWell(
                   onTap: () {
                     setState(() {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                             builder: (context) => const LogIn(),
