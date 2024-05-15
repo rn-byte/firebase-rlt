@@ -26,7 +26,7 @@ class _SignUpState extends State<SignUp> {
         centerTitle: true,
       ),
       body: Container(
-        margin: const EdgeInsets.all(40),
+        margin: const EdgeInsets.only(left: 40, right: 40, bottom: 20),
         child: ListView(
           children: [
             const SizedBox(
@@ -41,7 +41,7 @@ class _SignUpState extends State<SignUp> {
             ),
             TextFormField(
               decoration: formFieldDecoration(
-                  hText: 'Last Name', lText: 'Last Name', icon: Icons.person),
+                  hText: 'Last Name', lText: 'Last Name', icon: Icons.title),
             ),
             const SizedBox(
               height: 15,

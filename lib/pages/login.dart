@@ -26,7 +26,7 @@ class _LogInState extends State<LogIn> {
         centerTitle: true,
       ),
       body: Container(
-        margin: const EdgeInsets.all(40),
+        margin: const EdgeInsets.only(left: 40, right: 40),
         child: ListView(
           children: [
             const SizedBox(

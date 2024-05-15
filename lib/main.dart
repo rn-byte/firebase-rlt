@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_rlt/firebase_options.dart';
+import 'package:firebase_rlt/pages/home.dart';
 import 'package:firebase_rlt/pages/sign_up.dart';
 import 'package:flutter/material.dart';
 
@@ -20,12 +21,13 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
+      themeMode: ThemeMode.system,
       theme: ThemeData(
         fontFamily: 'Poppins',
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const SignUp(),
+      home: const MyHomePage(),
     );
   }
 }
