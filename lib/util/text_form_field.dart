@@ -4,12 +4,12 @@ InputDecoration formFieldDecoration(
     {required String hText,
     required String lText,
     required IconData icon,
-    IconData? suffixIcon}) {
+    Widget? suffixIcon}) {
   return InputDecoration(
       hintText: hText,
       labelText: lText,
       prefixIcon: Icon(icon),
-      suffixIcon: Icon(suffixIcon),
+      suffixIcon: suffixIcon,
       floatingLabelStyle: const TextStyle(color: Colors.black),
       filled: true,
       fillColor: const Color.fromARGB(255, 249, 250, 250),

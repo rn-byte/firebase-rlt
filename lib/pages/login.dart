@@ -3,6 +3,7 @@ import 'package:firebase_rlt/pages/home.dart';
 import 'package:firebase_rlt/pages/sign_up.dart';
 import 'package:firebase_rlt/util/text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class LogIn extends StatefulWidget {
   const LogIn({
@@ -16,6 +17,8 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  bool showPass = true;
+  String svgPath = 'assets/icons/cl_eye.svg';
   final _formKey = GlobalKey<FormState>();
   String uEmail = '';
   String uPass = '';
@@ -45,7 +48,7 @@ class _LogInState extends State<LogIn> {
                 decoration: formFieldDecoration(
                     hText: 'Enter Your Email',
                     lText: 'Enter Your Email',
-                    icon: Icons.email_rounded),
+                    icon: Icons.email_outlined),
                 validator: (value) {
                   if (value.toString().isEmpty) {
                     return 'Enter email';
@@ -61,12 +64,30 @@ class _LogInState extends State<LogIn> {
                 height: 15,
               ),
               TextFormField(
-                obscureText: true,
+                obscureText: showPass,
                 decoration: formFieldDecoration(
                     hText: 'Enter Password',
                     lText: 'Enter Password',
-                    icon: Icons.password,
-                    suffixIcon: Icons.no_encryption),
+                    icon: Icons.lock_outline,
+                    suffixIcon: InkWell(
+                        onTap: () {
+                          setState(() {
+                            showPass = !showPass;
+                            if (svgPath == 'assets/icons/cl_eye.svg') {
+                              svgPath = 'assets/icons/op_eye.svg';
+                            } else {
+                              svgPath = 'assets/icons/cl_eye.svg';
+                            }
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: SvgPicture.asset(
+                            svgPath,
+                            height: 2,
+                            width: 2,
+                          ),
+                        ))),
                 validator: (value) {
                   if (value.toString().isEmpty) {
                     return 'Enter password';

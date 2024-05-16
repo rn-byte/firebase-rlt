@@ -2,6 +2,7 @@ import 'package:firebase_rlt/functions/auth_function.dart';
 import 'package:firebase_rlt/pages/login.dart';
 import 'package:firebase_rlt/util/text_form_field.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -13,6 +14,10 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  bool showText = true;
+  String svgPath = 'assets/icons/cl_eye.svg';
+  bool showText2 = true;
+  String svgPath2 = 'assets/icons/cl_eye.svg';
   final _formKey = GlobalKey<FormState>();
   String fName = '';
   String lName = '';
@@ -52,7 +57,9 @@ class _SignUpState extends State<SignUp> {
             ),
             TextFormField(
               decoration: formFieldDecoration(
-                  hText: 'First Name', lText: 'First Name', icon: Icons.person),
+                  hText: 'First Name',
+                  lText: 'First Name',
+                  icon: Icons.person_outline),
               validator: (value) {
                 if (value.toString().isEmpty) {
                   return 'First Name Should not be Empty';
@@ -69,10 +76,12 @@ class _SignUpState extends State<SignUp> {
             ),
             TextFormField(
               decoration: formFieldDecoration(
-                  hText: 'Last Name', lText: 'Last Name', icon: Icons.title),
+                  hText: 'Last Name',
+                  lText: 'Last Name',
+                  icon: Icons.title_outlined),
               validator: (value) {
                 if (value.toString().isEmpty) {
-                  return 'Lase Name Should not be Empty';
+                  return 'Last Name Should not be Empty';
                 } else {
                   return null;
                 }
@@ -88,7 +97,7 @@ class _SignUpState extends State<SignUp> {
               decoration: formFieldDecoration(
                   hText: 'Enter Phone Number',
                   lText: 'Enter Phone Number',
-                  icon: Icons.phone),
+                  icon: Icons.phone_outlined),
               validator: (value) {
                 if (value.toString().isEmpty) {
                   return 'Phone Number Should not be Empty';
@@ -107,7 +116,7 @@ class _SignUpState extends State<SignUp> {
               decoration: formFieldDecoration(
                   hText: 'Enter Your Email',
                   lText: 'Enter Your Email',
-                  icon: Icons.email_rounded),
+                  icon: Icons.email_outlined),
               validator: (value) {
                 if (value.toString().isEmpty) {
                   return 'Email Should not be Empty';
@@ -127,12 +136,30 @@ class _SignUpState extends State<SignUp> {
             ),
             TextFormField(
               controller: uPassController,
-              obscureText: true,
+              obscureText: showText,
               decoration: formFieldDecoration(
                   hText: 'Enter Password',
                   lText: 'Enter Password',
-                  icon: Icons.password,
-                  suffixIcon: Icons.no_encryption),
+                  icon: Icons.lock_outline,
+                  suffixIcon: InkWell(
+                      onTap: () {
+                        setState(() {
+                          showText = !showText;
+                          if (svgPath == 'assets/icons/cl_eye.svg') {
+                            svgPath = 'assets/icons/op_eye.svg';
+                          } else {
+                            svgPath = 'assets/icons/cl_eye.svg';
+                          }
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: SvgPicture.asset(
+                          svgPath,
+                          height: 2,
+                          width: 2,
+                        ),
+                      ))),
               validator: (value) {
                 if (value.toString().isEmpty) {
                   return 'Password Field should be Empty';
@@ -152,12 +179,31 @@ class _SignUpState extends State<SignUp> {
             ),
             TextFormField(
                 controller: urPassController,
-                obscureText: true,
+                obscureText: showText2,
                 decoration: formFieldDecoration(
                     hText: 'Re-type Password',
                     lText: 'Re-type Password',
-                    icon: Icons.password,
-                    suffixIcon: Icons.no_encryption),
+                    icon: Icons.lock_outline,
+                    suffixIcon: InkWell(
+                      onTap: () {
+                        setState(() {
+                          showText2 = !showText2;
+                          if (svgPath2 == 'assets/icons/cl_eye.svg') {
+                            svgPath2 = 'assets/icons/op_eye.svg';
+                          } else {
+                            svgPath2 = 'assets/icons/cl_eye.svg';
+                          }
+                        });
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.all(15.0),
+                        child: SvgPicture.asset(
+                          svgPath2,
+                          height: 2,
+                          width: 2,
+                        ),
+                      ),
+                    )),
                 validator: (value) {
                   if (value.toString().isEmpty) {
                     return 'Password Field should be Empty';
