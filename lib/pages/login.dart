@@ -1,10 +1,13 @@
+import 'package:firebase_rlt/functions/auth_function.dart';
 import 'package:firebase_rlt/pages/home.dart';
 import 'package:firebase_rlt/pages/sign_up.dart';
 import 'package:firebase_rlt/util/text_form_field.dart';
 import 'package:flutter/material.dart';
 
 class LogIn extends StatefulWidget {
-  const LogIn({super.key});
+  const LogIn({
+    super.key,
+  });
 
   @override
   State<LogIn> createState() {
@@ -13,6 +16,9 @@ class LogIn extends StatefulWidget {
 }
 
 class _LogInState extends State<LogIn> {
+  final _formKey = GlobalKey<FormState>();
+  String uEmail = '';
+  String uPass = '';
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,93 +32,131 @@ class _LogInState extends State<LogIn> {
         ),
         centerTitle: true,
       ),
-      body: Container(
-        margin: const EdgeInsets.only(left: 40, right: 40),
-        child: ListView(
-          children: [
-            const SizedBox(
-              height: 200,
-            ),
-            TextFormField(
-              decoration: formFieldDecoration(
-                  hText: 'Enter Your Email',
-                  lText: 'Enter Your Email',
-                  icon: Icons.email_rounded),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            TextFormField(
-              obscureText: true,
-              decoration: formFieldDecoration(
-                  hText: 'Enter Password',
-                  lText: 'Enter Password',
-                  icon: Icons.password,
-                  suffixIcon: Icons.no_encryption),
-            ),
-            const SizedBox(
-              height: 40,
-            ),
-            SizedBox(
-              height: 45,
-              width: 200,
-              child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const MyHomePage(),
-                        ));
-                  },
-                  child: const Text(
-                    'Login',
-                    style: TextStyle(
-                      fontSize: 20,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  )),
-            ),
-            const SizedBox(
-              height: 15,
-            ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.end,
-              children: [
-                const Text(
-                  'Don\'t have an Account ?',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontFamily: 'Poppins',
-                      fontSize: 15,
-                      fontWeight: FontWeight.w500),
-                ),
-                InkWell(
-                  onTap: () {
-                    setState(() {
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => const SignUp(),
-                          ));
-                    });
-                  },
-                  child: const Text(' Signup',
+      body: Form(
+        key: _formKey,
+        child: Container(
+          margin: const EdgeInsets.only(left: 40, right: 40),
+          child: ListView(
+            children: [
+              const SizedBox(
+                height: 200,
+              ),
+              TextFormField(
+                decoration: formFieldDecoration(
+                    hText: 'Enter Your Email',
+                    lText: 'Enter Your Email',
+                    icon: Icons.email_rounded),
+                validator: (value) {
+                  if (value.toString().isEmpty) {
+                    return 'Enter email';
+                  } else {
+                    return null;
+                  }
+                },
+                onSaved: (value) {
+                  uEmail = value.toString();
+                },
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              TextFormField(
+                obscureText: true,
+                decoration: formFieldDecoration(
+                    hText: 'Enter Password',
+                    lText: 'Enter Password',
+                    icon: Icons.password,
+                    suffixIcon: Icons.no_encryption),
+                validator: (value) {
+                  if (value.toString().isEmpty) {
+                    return 'Enter password';
+                  } else {
+                    return null;
+                  }
+                },
+                onSaved: (value) {
+                  uPass = value.toString();
+                },
+              ),
+              const SizedBox(
+                height: 40,
+              ),
+              SizedBox(
+                height: 45,
+                width: 200,
+                child: ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        _logIn();
+                        // if () {
+                        //   Navigator.pushReplacement(
+                        //       context,
+                        //       MaterialPageRoute(
+                        //         builder: (context) => const MyHomePage(),
+                        //       ));
+                        // }
+                      });
+                    },
+                    child: const Text(
+                      'Login',
                       style: TextStyle(
-                        decoration: TextDecoration.underline,
-                        decorationColor: Colors.deepPurple,
-                        decorationThickness: 1.0,
-                        decorationStyle: TextDecorationStyle.solid,
-                        fontSize: 15,
+                        fontSize: 20,
                         fontWeight: FontWeight.bold,
-                        color: Colors.deepPurple,
-                      )),
-                ),
-              ],
-            )
-          ],
+                      ),
+                    )),
+              ),
+              const SizedBox(
+                height: 15,
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  const Text(
+                    'Don\'t have an Account ?',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontFamily: 'Poppins',
+                        fontSize: 15,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const SignUp(),
+                            ));
+                      });
+                    },
+                    child: const Text(' Signup',
+                        style: TextStyle(
+                          decoration: TextDecoration.underline,
+                          decorationColor: Colors.deepPurple,
+                          decorationThickness: 1.0,
+                          decorationStyle: TextDecorationStyle.solid,
+                          fontSize: 15,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.deepPurple,
+                        )),
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  _logIn() {
+    final isValid = _formKey.currentState!.validate();
+    if (isValid) {
+      _formKey.currentState!.save();
+      signIn(uEmail, uPass);
+    } else {
+      return 'Error';
+    }
   }
 }

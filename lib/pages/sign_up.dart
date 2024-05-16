@@ -1,3 +1,4 @@
+import 'package:firebase_rlt/functions/auth_function.dart';
 import 'package:firebase_rlt/pages/login.dart';
 import 'package:firebase_rlt/util/text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -12,6 +13,16 @@ class SignUp extends StatefulWidget {
 }
 
 class _SignUpState extends State<SignUp> {
+  final _formKey = GlobalKey<FormState>();
+  String fName = '';
+  String lName = '';
+  String uEmail = '';
+  String uPhone = '';
+  String uPass = '';
+  String urPass = '';
+
+  var uPassController = TextEditingController();
+  var urPassController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,7 +36,14 @@ class _SignUpState extends State<SignUp> {
         ),
         centerTitle: true,
       ),
-      body: Container(
+      body: _signupSection(context),
+    );
+  }
+
+  Form _signupSection(BuildContext context) {
+    return Form(
+      key: _formKey,
+      child: Container(
         margin: const EdgeInsets.only(left: 40, right: 40, bottom: 20),
         child: ListView(
           children: [
@@ -35,6 +53,16 @@ class _SignUpState extends State<SignUp> {
             TextFormField(
               decoration: formFieldDecoration(
                   hText: 'First Name', lText: 'First Name', icon: Icons.person),
+              validator: (value) {
+                if (value.toString().isEmpty) {
+                  return 'First Name Should not be Empty';
+                } else {
+                  return null;
+                }
+              },
+              onSaved: (value) {
+                fName = value.toString();
+              },
             ),
             const SizedBox(
               height: 15,
@@ -42,6 +70,16 @@ class _SignUpState extends State<SignUp> {
             TextFormField(
               decoration: formFieldDecoration(
                   hText: 'Last Name', lText: 'Last Name', icon: Icons.title),
+              validator: (value) {
+                if (value.toString().isEmpty) {
+                  return 'Lase Name Should not be Empty';
+                } else {
+                  return null;
+                }
+              },
+              onSaved: (value) {
+                lName = value.toString();
+              },
             ),
             const SizedBox(
               height: 15,
@@ -51,6 +89,16 @@ class _SignUpState extends State<SignUp> {
                   hText: 'Enter Phone Number',
                   lText: 'Enter Phone Number',
                   icon: Icons.phone),
+              validator: (value) {
+                if (value.toString().isEmpty) {
+                  return 'Phone Number Should not be Empty';
+                } else {
+                  return null;
+                }
+              },
+              onSaved: (value) {
+                uPhone = value.toString();
+              },
             ),
             const SizedBox(
               height: 15,
@@ -60,29 +108,68 @@ class _SignUpState extends State<SignUp> {
                   hText: 'Enter Your Email',
                   lText: 'Enter Your Email',
                   icon: Icons.email_rounded),
+              validator: (value) {
+                if (value.toString().isEmpty) {
+                  return 'Email Should not be Empty';
+                } else if (!(value.toString().contains(RegExp(
+                    r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")))) {
+                  return 'Invalid Email';
+                } else {
+                  return null;
+                }
+              },
+              onSaved: (value) {
+                uEmail = value.toString();
+              },
             ),
             const SizedBox(
               height: 15,
             ),
             TextFormField(
+              controller: uPassController,
               obscureText: true,
               decoration: formFieldDecoration(
                   hText: 'Enter Password',
                   lText: 'Enter Password',
                   icon: Icons.password,
                   suffixIcon: Icons.no_encryption),
+              validator: (value) {
+                if (value.toString().isEmpty) {
+                  return 'Password Field should be Empty';
+                } else if (value.toString().length < 6) {
+                  return 'Password Length Should be Greater Than 6';
+                } else {
+                  print(uPass);
+                  return null;
+                }
+              },
+              onSaved: (value) {
+                uPass = value.toString();
+              },
             ),
             const SizedBox(
               height: 15,
             ),
             TextFormField(
-              obscureText: true,
-              decoration: formFieldDecoration(
-                  hText: 'Re-type Password',
-                  lText: 'Re-type Password',
-                  icon: Icons.password,
-                  suffixIcon: Icons.no_encryption),
-            ),
+                controller: urPassController,
+                obscureText: true,
+                decoration: formFieldDecoration(
+                    hText: 'Re-type Password',
+                    lText: 'Re-type Password',
+                    icon: Icons.password,
+                    suffixIcon: Icons.no_encryption),
+                validator: (value) {
+                  if (value.toString().isEmpty) {
+                    return 'Password Field should be Empty';
+                  } else if (value.toString() == uPass) {
+                    return 'Password mis-match';
+                  } else {
+                    return null;
+                  }
+                },
+                onSaved: (value) {
+                  urPass = value.toString();
+                }),
             const SizedBox(
               height: 40,
             ),
@@ -90,7 +177,12 @@ class _SignUpState extends State<SignUp> {
               height: 45,
               width: 200,
               child: ElevatedButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    setState(() {
+                      _trySubmit();
+                      signUp(uEmail, uPass);
+                    });
+                  },
                   child: const Text(
                     'Signup',
                     style: TextStyle(
@@ -142,5 +234,14 @@ class _SignUpState extends State<SignUp> {
         ),
       ),
     );
+  }
+
+  _trySubmit() {
+    final isValid = _formKey.currentState!.validate();
+    if (isValid) {
+      _formKey.currentState!.save();
+    } else {
+      return 'Error';
+    }
   }
 }

@@ -20,10 +20,22 @@ InputDecoration formFieldDecoration(
             color: Colors.blue,
             width: 1,
           )),
+      focusedErrorBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: Colors.blue,
+            width: 1,
+          )),
       enabledBorder: const OutlineInputBorder(
           borderRadius: BorderRadius.all(Radius.circular(20)),
           borderSide: BorderSide(
             color: Colors.black,
+            width: 1,
+          )),
+      errorBorder: const OutlineInputBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20)),
+          borderSide: BorderSide(
+            color: Colors.red,
             width: 1,
           )));
 }

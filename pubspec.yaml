@@ -31,6 +31,7 @@ dependencies:
   flutter:
     sdk: flutter
   firebase_core:
+  firebase_auth:
 
 
 
