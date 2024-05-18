@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_rlt/functions/auth_function.dart';
 import 'package:firebase_rlt/pages/sign_up.dart';
 import 'package:firebase_rlt/util/text_form_field.dart';
 import 'package:flutter/material.dart';
