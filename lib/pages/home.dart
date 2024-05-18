@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_rlt/models/category.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -58,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
             padding: const EdgeInsets.only(left: 20, right: 20),
             itemBuilder: (context, index) => InkWell(
               onTap: () {
-                print('You click on ${categories[index].name}');
+                debugPrint('You click on ${categories[index].name}');
               },
               child: Container(
                 //margin: const EdgeInsets.all(20),
@@ -135,7 +136,7 @@ class _MyHomePageState extends State<MyHomePage> {
           ),
           suffixIcon: GestureDetector(
             onTap: () {
-              print('Filter icon Tapped');
+              debugPrint('Filter icon Tapped');
             },
             child: SizedBox(
               width: 100,
@@ -175,7 +176,8 @@ class _MyHomePageState extends State<MyHomePage> {
       centerTitle: true,
       leading: GestureDetector(
         onTap: () {
-          print('App Drawer tapped');
+          FirebaseAuth.instance.signOut();
+          debugPrint('App Drawer tapped');
         },
         child: Container(
           margin: const EdgeInsets.all(15),
@@ -193,7 +195,7 @@ class _MyHomePageState extends State<MyHomePage> {
       actions: [
         GestureDetector(
           onTap: () {
-            print('Dot Dot tapped');
+            debugPrint('Dot Dot tapped');
           },
           child: Container(
             margin: const EdgeInsets.all(10),

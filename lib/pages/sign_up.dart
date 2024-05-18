@@ -166,7 +166,6 @@ class _SignUpState extends State<SignUp> {
                 } else if (value.toString().length < 6) {
                   return 'Password Length Should be Greater Than 6';
                 } else {
-                  print(uPass);
                   return null;
                 }
               },
@@ -207,9 +206,12 @@ class _SignUpState extends State<SignUp> {
                 validator: (value) {
                   if (value.toString().isEmpty) {
                     return 'Password Field should be Empty';
-                  } else if (value.toString() == uPass) {
-                    return 'Password mis-match';
-                  } else {
+                  }
+                  // else if (value.toString() == uPass) {
+                  //   return 'Password mis-match';
+                  // }
+                  else {
+                    //print(uPass);
                     return null;
                   }
                 },
@@ -224,10 +226,17 @@ class _SignUpState extends State<SignUp> {
               width: 200,
               child: ElevatedButton(
                   onPressed: () {
-                    setState(() {
-                      _trySubmit();
+                    final isValid = _formKey.currentState!.validate();
+                    if (isValid) {
+                      _formKey.currentState!.save;
                       signUp(uEmail, uPass);
-                    });
+                    } else {
+                      throw 'Error';
+                    }
+
+                    //setState(() {
+
+                    //});
                   },
                   child: const Text(
                     'Signup',
@@ -282,12 +291,26 @@ class _SignUpState extends State<SignUp> {
     );
   }
 
-  _trySubmit() {
-    final isValid = _formKey.currentState!.validate();
-    if (isValid) {
-      _formKey.currentState!.save();
-    } else {
-      return 'Error';
-    }
-  }
+  // Future<void> _trySubmit(String uEmail, String uPass) async {
+  //   final isValid = _formKey.currentState!.validate();
+  //   if (isValid) {
+  //     _formKey.currentState!.save();
+  //     try {
+  //       final auth = FirebaseAuth.instance;
+  //       await auth.createUserWithEmailAndPassword(
+  //           email: uEmail, password: uPass);
+  //       debugPrint("SignUp Successful");
+  //     } on FirebaseAuthException catch (e) {
+  //       if (e.code == 'weak-password') {
+  //         throw Exception('The password provided is too weak.');
+  //       } else if (e.code == 'email-already-in-use') {
+  //         throw Exception('The account already exists for that email.');
+  //       }
+  //     } catch (e) {
+  //       throw Exception(e);
+  //     }
+  //   } else {
+  //     throw Exception('Error');
+  //   }
+  // }
 }

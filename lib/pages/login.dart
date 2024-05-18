@@ -1,5 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_rlt/functions/auth_function.dart';
-import 'package:firebase_rlt/pages/home.dart';
 import 'package:firebase_rlt/pages/sign_up.dart';
 import 'package:firebase_rlt/util/text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -107,16 +107,14 @@ class _LogInState extends State<LogIn> {
                 width: 200,
                 child: ElevatedButton(
                     onPressed: () {
-                      setState(() {
-                        _logIn();
-                        // if () {
-                        //   Navigator.pushReplacement(
-                        //       context,
-                        //       MaterialPageRoute(
-                        //         builder: (context) => const MyHomePage(),
-                        //       ));
-                        // }
-                      });
+                      _logIn(uEmail, uPass);
+                      // final isValid = _formKey.currentState!.validate();
+                      // if (isValid) {
+                      //   _formKey.currentState!.save;
+                      //   signIn(uEmail, uPass);
+                      // } else {
+                      //   debugPrint("Error");
+                      // }
                     },
                     child: const Text(
                       'Login',
@@ -171,11 +169,23 @@ class _LogInState extends State<LogIn> {
     );
   }
 
-  _logIn() {
+  _logIn(String uEmail, String uPass) async {
     final isValid = _formKey.currentState!.validate();
     if (isValid) {
       _formKey.currentState!.save();
-      signIn(uEmail, uPass);
+
+      try {
+        final auth = FirebaseAuth.instance;
+        await auth.signInWithEmailAndPassword(email: uEmail, password: uPass);
+
+        debugPrint('Login successfull>>>>>>>>>>>>>');
+      } on FirebaseAuthException catch (e) {
+        if (e.code == 'user-not-found') {
+          debugPrint('No user found for that email.');
+        } else if (e.code == 'wrong-password') {
+          debugPrint('Wrong password provided for that user.');
+        }
+      }
     } else {
       return 'Error';
     }
